@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres # Or specify your desired PostgreSQL version
+    ports:
+      - "5432:5432" # Maps host port 5432 to container port 5432
+    environment:
+      POSTGRES_USER: mani  # Replace with your desired username
+      POSTGRES_PASSWORD: agoodpassword  # Replace with a strong password
+      POSTGRES_DB: test-db  # Replace with your database name
+
+  adminer:
+    image: adminer:latest
+    ports:
+      - "8080:8080"  # Maps host port 8080 to container port 8080
+    depends_on:
+      - postgres # Ensures Adminer starts after PostgreSQL
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres # Tells Adminer which service to connect to. Important!
+
+  mysql:
+    image: mysql:latest # Or specify your desired MySQL version
+    ports:
+      - "3306:3306" # Maps host port 3306 to container port 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # Replace with a strong root password
+      MYSQL_DATABASE: testdb  # Replace with your database name
+      MYSQL_USER: user  # Replace with your desired username
+      MYSQL_PASSWORD: agoodpassword  # Replace with a strong password
