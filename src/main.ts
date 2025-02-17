@@ -12,10 +12,13 @@ async function bootstrap() {
     type: VersioningType.URI,
     defaultVersion: "1",
   });
-
+  // {
+  //   "email": "jane.doe@example.com",
+  //     "password": "Pass!@#321"
+  // }
   const config = new DocumentBuilder()
     .setTitle('ERM-Application API')
-    .setDescription('The ERM-Application API for managing Users, Roles, and Permissions')  
+    .setDescription('The ERM-Application API for managing Users, Roles, and Permissions \n\n**Test admin credentials:**\n\nEmail: jane.doe@example.com\n\nPassword: Pass!@#321')
     .setVersion('1.0')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
