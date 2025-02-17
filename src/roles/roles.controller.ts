@@ -3,6 +3,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagg
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { RolesService } from './roles.service';
+import { AssignPermissionsDto } from './dto/assign-permissions.dto';
 
 @ApiTags('roles')
 @Controller('roles')
@@ -32,6 +33,14 @@ export class RolesController {
     return this.roleService.findOne(id);
   }
 
+  @ApiOperation({ summary: 'Assign permissions to a role' })
+  @ApiResponse({ status: 200, description: 'The permissions have been successfully assigned.' })
+  @ApiResponse({ status: 404, description: 'Role or permissions not found.' })
+  @Post(':id/permissions')
+  async assignPermissions(@Param('id') id: string, @Body() assignPermissionsDto: AssignPermissionsDto) {
+    return this.roleService.assignPermissions(id, assignPermissionsDto.permissionNames);
+  }
+
   @ApiOperation({ summary: 'Update a role' })
   @ApiResponse({ status: 200, description: 'The role has been successfully updated.' })
   @ApiResponse({ status: 404, description: 'Role not found.' })
@@ -48,11 +57,5 @@ export class RolesController {
     return this.roleService.remove(id);
   }
 
-  @ApiOperation({ summary: 'Assign permissions to a role' })
-  @ApiResponse({ status: 200, description: 'The permissions have been successfully assigned.' })
-  @ApiResponse({ status: 404, description: 'Role or permissions not found.' })
-  @Post(':id/permissions')
-  async assignPermissions(@Param('id') id: string, @Body() permissionIds: number[]) {
-    return this.roleService.assignPermissions(id, permissionIds);
-  }
+
 }

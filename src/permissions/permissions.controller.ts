@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { PermissionsService } from './permissions.service';
-import { CreatePermissionDto } from './dto/create-permission.dto';
+import { CreateBulkPermissionsDto, CreatePermissionDto } from './dto/create-permission.dto';
 import { UpdatePermissionDto } from './dto/update-permission.dto';
 
 @ApiTags('permissions')
@@ -29,7 +29,7 @@ export class PermissionsController {
   @ApiResponse({ status: 404, description: 'Permission not found.' })
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.permissionsService.findOne(+id);
+    return this.permissionsService.findOne(id);
   }
 
   @ApiOperation({ summary: 'Update a permission' })
@@ -37,7 +37,7 @@ export class PermissionsController {
   @ApiResponse({ status: 404, description: 'Permission not found.' })
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePermissionDto: UpdatePermissionDto) {
-    return this.permissionsService.update(+id, updatePermissionDto);
+    return this.permissionsService.update(id, updatePermissionDto);
   }
 
   @ApiOperation({ summary: 'Delete a permission' })
@@ -45,6 +45,15 @@ export class PermissionsController {
   @ApiResponse({ status: 404, description: 'Permission not found.' })
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.permissionsService.remove(+id);
+    return this.permissionsService.remove(id);
+  }
+
+  // bulk create
+  @ApiOperation({ summary: 'Create multiple permissions' })
+  @ApiResponse({ status: 201, description: 'The permissions have been successfully created.' })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
+  @Post('bulk')
+  bulkCreate(@Body() bulkCreateDto: CreateBulkPermissionsDto) {
+    return this.permissionsService.bulkCreate(bulkCreateDto.names);
   }
 }

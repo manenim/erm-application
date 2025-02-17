@@ -3,8 +3,8 @@ import { Role } from '../../roles/entities/role.entity';
 
 @Entity()
 export class Permission {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Column({ unique: true })
     name: string;
