@@ -106,11 +106,31 @@ export class UsersService {
     return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  updateUser(id: string, updateUserDto: UpdateUserDto) {
+    // check if user exists
+    const user = this.usersRepository.findOne({
+      where: {
+        id
+      }
+    });
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+    const updatedUser = this.usersRepository.update(id, updateUserDto);
+    return updatedUser;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  remove(id: string) {
+    // check if user exists
+    const user = this.usersRepository.findOne({
+      where: {
+        id
+      }
+    });
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+    const deletedUser = this.usersRepository.delete(id);
+    return deletedUser;
   }
 }

@@ -7,7 +7,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { RolesModule } from './roles/roles.module';
 import { PermissionsModule } from './permissions/permissions.module';
-
+// postgresql://mani:M2ogc94pfn5p4yLbNG0MCwanVuJCbxcd@dpg-cupepupu0jms73bm4asg-a.oregon-postgres.render.com/ermdb_1bp9
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -15,15 +15,17 @@ import { PermissionsModule } from './permissions/permissions.module';
     }),
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
-        type: 'mysql',
-        host: 'localhost',
-        port: 3306,
-        username: 'root',
-        password: 'rootpassword',
-        database: configService.getOrThrow('DB_DATABASE'),
+        type: 'postgres',
+        host: 'dpg-cupepupu0jms73bm4asg-a.oregon-postgres.render.com',
+        port: 5432,
+        username: 'mani',
+        password: 'M2ogc94pfn5p4yLbNG0MCwanVuJCbxcd',
+        database: "ermdb_1bp9",
         autoLoadEntities: true,
         synchronize: true,
-        
+        ssl: {
+          rejectUnauthorized: false
+        }
     }),
     inject: [ConfigService],
     }),
