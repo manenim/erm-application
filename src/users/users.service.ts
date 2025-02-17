@@ -17,7 +17,6 @@ export class UsersService {
   ) { }
 
   async create(createUserDto: CreateUserDto) {
-    // check if user exists, hash the password and save the user
     const existingUser = await this.usersRepository.findOne({
       where: {
         email: createUserDto.email
@@ -49,6 +48,30 @@ export class UsersService {
 
     return result;
 
+  }
+
+  async assignRole(userId: string, roleName: string) {
+    const user = await this.usersRepository.findOne({
+      where: {
+        id: userId
+      }
+    });
+
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    const role = await this.rolesService.findOneByRoleName(roleName);
+
+    if (!role) {
+      throw new BadRequestException('Role not found');
+    }
+
+    user.roles.push(role);
+
+    await this.usersRepository.save(user);
+
+    return user;
   }
 
   async findAll() {
