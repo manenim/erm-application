@@ -17,10 +17,10 @@ export class PermissionsService {
     try {
       return await this.permissionsRepository.save(permission);
     } catch (error) {
-      if (error.code === '23505') { // PostgreSQL unique constraint violation example
+      if (error.code === '23505') { 
         throw new BadRequestException('Permission name already exists.');
       }
-      throw error; // Re-throw other errors
+      throw error; 
     }
   }
 
@@ -59,7 +59,7 @@ export class PermissionsService {
   async update(id: string, updatePermissionDto: UpdatePermissionDto): Promise<Permission> {
     try {
       await this.permissionsRepository.update(id, updatePermissionDto);
-      return this.findOne(id); // Return the updated entity
+      return this.findOne(id); 
     } catch (error) {
       if (error.code === '23505') {
         throw new BadRequestException('Permission name already exists.');

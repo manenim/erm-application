@@ -1,5 +1,3 @@
-
-// src/auth/role.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, In } from 'typeorm';
@@ -8,14 +6,13 @@ import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { Permission } from 'src/permissions/entities/permission.entity';
 import { PermissionEnum } from 'src/auth/enums/permissions.enum';
-// import { Permission } from './entities/permission.entity'; // Import Permission Entity
 
 @Injectable()
 export class RolesService {
   constructor(
     @InjectRepository(Role)
     private rolesRepository: Repository<Role>,
-    @InjectRepository(Permission) // Inject Permission Repository
+    @InjectRepository(Permission) 
     private permissionRepository: Repository<Permission>,
   ) { }
 
