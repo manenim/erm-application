@@ -4,8 +4,15 @@ import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { RolesService } from './roles.service';
 import { AssignPermissionsDto } from './dto/assign-permissions.dto';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { RoleEnum } from 'src/auth/enums/role.enum';
+import { RolesGuard } from 'src/auth/guards/roles/roles.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @ApiTags('roles')
+@Roles(RoleEnum.ADMIN)
+@UseGuards(RolesGuard)
+@UseGuards(JwtAuthGuard)
 @Controller('roles')
 export class RolesController {
   constructor(private readonly roleService: RolesService) { }

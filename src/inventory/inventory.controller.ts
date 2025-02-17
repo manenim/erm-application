@@ -8,7 +8,7 @@ import { RolesGuard } from 'src/auth/guards/roles/roles.guard';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 
-@ApiTags('inventory (Can only be accessed by inventory managers)')
+@ApiTags('Inventory (Can only be accessed by inventory managers and Admins)')
 @Roles(RoleEnum.ADMIN, RoleEnum.INVENTORY_MANAGER)
 @UseGuards(RolesGuard)
 @UseGuards(JwtAuthGuard)

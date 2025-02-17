@@ -41,9 +41,6 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'The role has been successfully assigned.' })
   @ApiResponse({ status: 404, description: 'User or role not found.' })
   @ApiBearerAuth()
-  @Roles(RoleEnum.ADMIN)
-  @UseGuards(RolesGuard)
-  @UseGuards(JwtAuthGuard)
   @Patch('assign-role/:userId')
   assignRole(@Param('userId') userId: string, @Body() assignRoleDto: AssignRoleDto) {
     return this.usersService.assignRole(userId, assignRoleDto.roleName);

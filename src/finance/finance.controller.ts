@@ -8,7 +8,7 @@ import { Roles } from 'src/auth/decorators/roles.decorator';
 import { RolesGuard } from 'src/auth/guards/roles/roles.guard';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
-@ApiTags('finance (Can only be accessed by finance managers)')
+@ApiTags('Finance (Can only be accessed by finance managers and Admins)')
 @Roles(RoleEnum.ADMIN, RoleEnum.FINANCE_MANAGER)
 @UseGuards(RolesGuard)
 @UseGuards(JwtAuthGuard)

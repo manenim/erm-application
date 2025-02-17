@@ -8,7 +8,7 @@ import { RoleEnum } from 'src/auth/enums/role.enum';
 import { RolesGuard } from 'src/auth/guards/roles/roles.guard';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
-@ApiTags('employee-info (Can only be accessed by HR_Managers)')
+@ApiTags('Employee-info (Can only be accessed by HR_Managers and Admins)')
 @Roles(RoleEnum.ADMIN, RoleEnum.HR_MANAGER)
 @UseGuards(RolesGuard)
 @UseGuards(JwtAuthGuard)

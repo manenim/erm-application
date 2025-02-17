@@ -8,12 +8,23 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @ApiTags('auth')
 @Controller('auth')
+
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
 
   @ApiOperation({ summary: 'Login a user' })
   @ApiResponse({ status: 200, description: 'The user has been successfully logged in.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
+  @ApiResponse({
+    status: 200,
+    description: 'Example admin credentials',
+    schema: {
+      example: {
+        email: 'jane.doe@example.com',
+        password: 'Pass!@#321'
+      }
+    }
+  })
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@Request() req) {
