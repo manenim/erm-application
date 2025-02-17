@@ -16,16 +16,17 @@ import { PermissionsModule } from './permissions/permissions.module';
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: 'dpg-cupepupu0jms73bm4asg-a.oregon-postgres.render.com',
+        host: configService.getOrThrow('DB_HOST'),
         port: 5432,
-        username: 'mani',
-        password: 'M2ogc94pfn5p4yLbNG0MCwanVuJCbxcd',
-        database: "ermdb_1bp9",
+        username: configService.getOrThrow('DB_USERNAME'),
+        password: configService.getOrThrow('DB_PASSWORD'),
+        database: configService.getOrThrow('DB_DATABASE'),
         autoLoadEntities: true,
         synchronize: true,
         ssl: {
           rejectUnauthorized: false
         }
+        
     }),
     inject: [ConfigService],
     }),
