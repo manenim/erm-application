@@ -26,9 +26,7 @@ import { InventoryModule } from './inventory/inventory.module';
         database: configService.getOrThrow('DB_DATABASE'),
         autoLoadEntities: true,
         synchronize: true,
-        ssl: {
-          rejectUnauthorized: false
-        }
+        ssl: false
         
     }),
     inject: [ConfigService],
